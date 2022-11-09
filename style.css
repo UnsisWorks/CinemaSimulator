@@ -1,0 +1,4 @@
+#box {
+    /* background: radial-gradient(circle at 70%, rgb(223, 48, 48), rgb(15, 199, 177) 40%, rgb(16, 19, 210) 75%, #333 75%); */
+    background: radial-gradient(circle at 100%, rgb(237, 129, 176) 0%, rgb(106, 197, 236) 100%);
+}
