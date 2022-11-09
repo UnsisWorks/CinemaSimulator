@@ -1,6 +1,7 @@
 /* Simple C program that connects to MySQL Database server*/
 #include <mysql.h>
 #include <stdio.h>
+
 void main() {
     MYSQL *conn;
     MYSQL_RES *res;
@@ -32,3 +33,5 @@ void main() {
 }
 
 // Compiler: gcc -o test $(mysql_config --cflags) test.c $(mysql_config -–libs)
+// Ubuntu unsis: unsis:CETI
+// WSL user: 192.168.3.3:ome_pass
