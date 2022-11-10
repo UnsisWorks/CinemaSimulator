@@ -1,5 +1,5 @@
 #include <gtk/gtk.h>
-#include <mysql.h>
+// #include <mysql.h>
 #include <stdio.h>
 #include <stdlib.h>
 // #include "Cola.c"
@@ -24,9 +24,9 @@ static void initSimulator (GtkApplication *app, gpointer user_data) {
  */
 static void activate (GtkApplication *app, gpointer user_data) {
     
-    GtkWidget *buttBoxAcer, *buttBoxPlay, *buttBoxHelp, *buttBoxScore, *buttBoxExit, *box;
+    GtkWidget *buttBoxAcer, *buttBoxPlay, *buttBoxHelp, *buttBoxScore, *buttBoxExit, *box, *subLine;
     GtkWidget *buttonAcer, *buttonStart, *buttonHelp, *buttonList, *buttonExit;
-    GtkWidget *imageExit, *imageAcer, *imagePlay, *imageScore, *imageSett;
+    GtkWidget *imageExit, *imageAcer, *imagePlay, *imageScore, *imageSett, *labelTitle, *fixed;
     GtkCssProvider *cssProvider;
     // Load images for buttons
     imagePlay = gtk_image_new_from_file("./image/PLAY.png");
@@ -36,10 +36,17 @@ static void activate (GtkApplication *app, gpointer user_data) {
     imageSett = gtk_image_new_from_file("./image/SETTINGS.png");
 
     cssProvider = gtk_css_provider_new();
+    subLine = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
 
     // Create container fixed
     box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_box_set_homogeneous(GTK_BOX(box), TRUE);
+
+    labelTitle = gtk_label_new("Cinema simulator");
+    fixed = gtk_fixed_new();
+    gtk_fixed_put(GTK_FIXED(fixed), labelTitle, 0, 0);
+    gtk_fixed_put(GTK_FIXED(fixed), subLine, 0, 40);
+    gtk_box_pack_start(GTK_BOX(box), fixed, TRUE, FALSE, 30);
 
     // Create box for buttons
     buttBoxAcer = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
@@ -76,10 +83,10 @@ static void activate (GtkApplication *app, gpointer user_data) {
     
     // Add buttons at box
     gtk_container_add(GTK_CONTAINER(box), buttBoxPlay);
-    gtk_container_add(GTK_CONTAINER(box), buttBoxScore);
-    gtk_container_add(GTK_CONTAINER(box), buttBoxHelp);
-    gtk_container_add(GTK_CONTAINER(box), buttBoxAcer);
-    gtk_container_add(GTK_CONTAINER(box), buttBoxExit);
+    // gtk_container_add(GTK_CONTAINER(box), buttBoxScore);
+    // gtk_container_add(GTK_CONTAINER(box), buttBoxHelp);
+    // gtk_container_add(GTK_CONTAINER(box), buttBoxAcer);
+    // gtk_container_add(GTK_CONTAINER(box), buttBoxExit);
 
     gtk_widget_set_size_request(GTK_WIDGET(buttonAcer), 240, 90);
     gtk_widget_set_size_request(GTK_WIDGET(buttonHelp), 240, 90);
@@ -92,16 +99,18 @@ static void activate (GtkApplication *app, gpointer user_data) {
     gtk_style_context_add_class(gtk_widget_get_style_context(buttonList), "button");
     gtk_style_context_add_class(gtk_widget_get_style_context(buttonExit), "button");
     gtk_style_context_add_class(gtk_widget_get_style_context(imageExit), "images");
+    gtk_style_context_add_class(gtk_widget_get_style_context(labelTitle), "labelTitle");
         
+    gtk_widget_set_name(GTK_WIDGET(box), "subLine");
+    gtk_widget_set_name(GTK_WIDGET(box), "box");
     // Set properties for winow
     mainWindow = gtk_application_window_new (app);
     gtk_window_set_position(GTK_WINDOW(mainWindow), GTK_WIN_POS_CENTER);
-    gtk_window_set_title (GTK_WINDOW (mainWindow), "torreAs");
-    gtk_window_set_default_size (GTK_WINDOW (mainWindow), 650, 850);
+    gtk_window_set_title(GTK_WINDOW (mainWindow), ".");
+    gtk_window_set_default_size (GTK_WINDOW (mainWindow), 800, 450);
     gtk_window_set_resizable(GTK_WINDOW(mainWindow), FALSE);
 
 
-    gtk_widget_set_name(GTK_WIDGET(box), "box");
 
     gtk_css_provider_load_from_path(cssProvider, "./style.css", NULL);
     gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
@@ -124,4 +133,4 @@ int main (int argc, char **argv) {
     return status;
 }
 
-// Compiler      
+// Compiler gcc `pkg-config --cflags gtk+-3.0` -o main main.c `pkg-config --libs gtk+-3.0`     
