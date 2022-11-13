@@ -2,6 +2,8 @@
 // #include <mysql.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 // #include "Cola.c"
 
 GtkWidget *mainWindow;
@@ -12,8 +14,22 @@ static void loadData () {
 
 static void initSimulator (GtkApplication *app, gpointer user_data) {
     GtkWidget *initWindow;
+     al_init();
+    al_install_keyboard();
+    al_set_new_display_flags(ALLEGRO_RESIZABLE);
+    al_set_new_display_option(ALLEGRO_SINGLE_BUFFER, 1, ALLEGRO_REQUIRE);
+    display = al_create_display(640, 480);
+    al_set_window_title(display, "window");
+    al_init_primitives_addon();
 
-    
+    events = al_create_event_queue();
+    al_register_event_source(events, al_get_keyboard_event_source());
+
+    while (al_is_event_queue_empty(events)) {
+        al_draw_filled_circle(rand() % 640, rand() % 480, rand() % 64, al_map_rgb(rand() % 256, 0, 0));
+        al_flip_display();
+        al_rest(0.015);
+    }
 }
 
 /**
@@ -70,9 +86,10 @@ static void activate (GtkApplication *app, gpointer user_data) {
 
 
     // Add signals at buttons
-    // g_signal_connect(buttonStart, "clicked", G_CALLBACK(initGame), NULL);
+    g_signal_connect(buttonStart, "clicked", G_CALLBACK(initSimulator), NULL);
     // g_signal_connect(buttonAcer, "clicked", G_CALLBACK(acercaDe), NULL);
     // g_signal_connect(buttonList, "clicked", G_CALLBACK(windowScore), NULL);
+    // g_signal_connect(buttonP, "clicked", G_CALLBACK(windowScore), NULL);
 
     // Add buttons  at button box
     gtk_container_add(GTK_CONTAINER(buttBoxAcer), buttonAcer);
