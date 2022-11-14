@@ -5,8 +5,18 @@
 
 const float FPS = 60;
 
-int main(int argc, char *argv[])
-{
+/**
+ * `al_play_sample(acodec, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);`
+ * 
+ * This function plays the sample `acodec` with a volume of `1.0`, a pan of `0.0`, a speed of `1.0`, a
+ * play mode of `ALLEGRO_PLAYMODE_LOOP`, and a sample ID of `NULL`
+ * 
+ * @param argc The number of arguments passed to the program.
+ * @param argv The name of the file to play.
+ * 
+ * @return The return value is the sample ID.
+ */
+int main(int argc, char *argv[]) {
 	ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_SAMPLE *acodec = NULL;
     ALLEGRO_SAMPLE_ID *id = NULL;
@@ -38,15 +48,6 @@ int main(int argc, char *argv[])
         return 1;
     }
     al_play_sample(acodec, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
-    
-	// Create the display
-	// display = al_create_display(640, 480);
-	// if (!display) {
-	// 	fprintf(stderr, "Failed to create display.\n");
-	// 	return 1;
-	// }
-
-	
 
 	// Clean up
 	al_destroy_display(display);

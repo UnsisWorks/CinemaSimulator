@@ -7,6 +7,8 @@
 // #include "Cola.c"
 
 GtkWidget *mainWindow;
+ALLEGRO_DISPLAY *display = NULL;
+ALLEGRO_EVENT_QUEUE *events = NULL;
 
 static void loadData () {
 
@@ -151,3 +153,4 @@ int main (int argc, char **argv) {
 }
 
 // Compiler gcc `pkg-config --cflags gtk+-3.0` -o main main.c `pkg-config --libs gtk+-3.0`     
+// Compiler: gcc `pkg-config --cflags gtk+-3.0` -o main main.c `pkg-config --libs gtk+-3.0` -I/home/monstruosoft/libs/usr/local/include/ -L/home/monstruosoft/libs/usr/local/lib/ -lallegro -lallegro_primitives
