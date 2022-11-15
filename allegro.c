@@ -20,8 +20,6 @@ int main(int argc, char *argv[]) {
 	ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_SAMPLE *acodec = NULL;
     ALLEGRO_SAMPLE_ID *id = NULL;
-
-    acodec = al_load_sample("./sound/sound.wav");
 	
     // Initialize allegro
 	if (!al_init()) {
@@ -41,17 +39,34 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     
+    acodec = al_load_sample("./sound/sound.wav");
     
     // Initialize allegro
     if (acodec == NULL) {
         fprintf(stderr, "Failed to play audio.\n");
         return 1;
     }
-    al_play_sample(acodec, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
 
 	// Clean up
-	al_destroy_display(display);
+    // if (!al_play_sample(acodec, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL) ) {
+    //         fprintf(stderr, "Failed to play audio.\n");
+    //         return 1;
+    // }
 
+    // Ejecuta el file wav:  
+      int vox = al_play_sample(acodec, 255, 128, 1000, 0, NULL  );  
+      int pos;
+      do {  
+        //  pos = al_voice_get_position(vox);  
+         printf("Ejecución de la muestra de audio n. %d\r", pos);  
+      } while (pos!=-1);  
+      
+      
+    // Terminar:  
+      al_destroy_sample(acodec);  
+    //   al_remove_sound();
+	
+    al_destroy_display(display);
 	return 0;
 }
 // Compiler: gcc allegro.c -I/home/monstruosoft/libs/usr/local/include/ -L/home/monstruosoft/libs/usr/local/lib/ -lallegro -lallegro_primitives -lallegro_audio -lallegro_acodec -o allegro
