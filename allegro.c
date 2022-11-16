@@ -1,72 +1,114 @@
+// #include <stdio.h>
+// #include <allegro5/allegro.h>
+// #include <allegro5/allegro_audio.h>
+// #include <allegro5/allegro_acodec.h>
+
 #include <stdio.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-const float FPS = 60;
+int main(int argc, char **argv){
 
-/**
- * `al_play_sample(acodec, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);`
- * 
- * This function plays the sample `acodec` with a volume of `1.0`, a pan of `0.0`, a speed of `1.0`, a
- * play mode of `ALLEGRO_PLAYMODE_LOOP`, and a sample ID of `NULL`
- * 
- * @param argc The number of arguments passed to the program.
- * @param argv The name of the file to play.
- * 
- * @return The return value is the sample ID.
- */
-int main(int argc, char *argv[]) {
-	ALLEGRO_DISPLAY *display = NULL;
-    ALLEGRO_SAMPLE *acodec = NULL;
-    ALLEGRO_SAMPLE_ID *id = NULL;
-	
-    // Initialize allegro
-	if (!al_init()) {
-		fprintf(stderr, "Failed to initialize allegro.\n");
-		return 1;
-	}
 
-    // Initialize allegro
-    if (!al_init_acodec_addon()) {
-        fprintf(stderr, "Failed to initialize acodec.\n");
-        return 1;
+    ALLEGRO_DISPLAY *display = NULL;
+
+
+    if (!al_init()){
+        fprintf(stderr, "failed to initialize allegro!\n");
+        return -1;
     }
 
-    // Initialize allegro
-    if (!al_install_audio()) {
-        fprintf(stderr, "Failed to initialize audio.\n");
-        return 1;
-    }
-    
-    acodec = al_load_sample("./sound/sound.wav");
-    
-    // Initialize allegro
-    if (acodec == NULL) {
-        fprintf(stderr, "Failed to play audio.\n");
-        return 1;
+    if (!al_install_audio()){
+        fprintf(stderr, "failed to initialize audio!\n");
+        return -1;
     }
 
-	// Clean up
-    // if (!al_play_sample(acodec, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL) ) {
-    //         fprintf(stderr, "Failed to play audio.\n");
-    //         return 1;
+    if (!al_init_acodec_addon()){
+        fprintf(stderr, "failed to initialize audio codecs!\n");
+        return -1;
+    }
+
+    if (!al_reserve_samples(1)){
+        fprintf(stderr, "failed to reserve samples!\n");
+        return -1;
+    }
+
+
+    al_install_audio();
+    al_init_acodec_addon();
+
+    ALLEGRO_SAMPLE *sample = al_load_sample("./sound/sound.wav"); //sample always NULL
+
+    al_reserve_samples(1);
+
+    if (!sample){
+        printf("Audio clip sample not loaded!\n");
+        return -1;
+    }
+
+    display = al_create_display(640, 480);
+
+    if (!display){
+        fprintf(stderr, "failed to create display!\n");
+        return -1;
+    }
+
+    /* Loop the sample until the display closes. */
+    al_play_sample(sample, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+
+    al_rest(10.0);
+
+    al_destroy_display(display);
+    al_destroy_sample(sample);
+    return 0;
+}
+
+int initSound(){
+
+    // ALLEGRO_DISPLAY *display = NULL;
+
+    // allegro_init();
+     install_allegro(SYSTEM_AUTODETECT, &errno, atexit);
+    // if (!install_sound()){
+    //     fprintf(stderr, "failed to initialize audio!\n");
+    //     return -1;
     // }
 
-    // Ejecuta el file wav:  
-      int vox = al_play_sample(acodec, 255, 128, 1000, 0, NULL  );  
-      int pos;
-      do {  
-        //  pos = al_voice_get_position(vox);  
-         printf("Ejecución de la muestra de audio n. %d\r", pos);  
-      } while (pos!=-1);  
-      
-      
-    // Terminar:  
-      al_destroy_sample(acodec);  
-    //   al_remove_sound();
-	
-    al_destroy_display(display);
-	return 0;
+    puts("Aqui 1");
+    if (install_sound(DIGI_AUTODETECT, MIDI_AUTODETECT, NULL) != 0) {
+        allegro_message("Error: inicializando sistema de sonido\n%s\n", allegro_error);
+        return 1;
+    }
+
+    puts("Aqui 2");
+
+    SAMPLE *sample = load_sample("./sound/sound.wav");
+
+    // reserve_samples(1);
+
+    puts("Aqui 3");
+    if (!sample){
+        printf("Audio clip sample not loaded!\n");
+        return -1;
+    }
+
+    puts("Aqui 4");
+    // display = al_create_display(640, 480);
+
+    // if (!display){
+    //     fprintf(stderr, "failed to create display!\n");
+    //     return -1;
+    // }
+
+    /* Loop the sample until the display closes. */
+    play_sample(sample, 255, 0, 2000, 0);
+
+
+    // al_destroy_display(display);
+    destroy_sample(sample);
+    return 0;
 }
+
+
 // Compiler: gcc allegro.c -I/home/monstruosoft/libs/usr/local/include/ -L/home/monstruosoft/libs/usr/local/lib/ -lallegro -lallegro_primitives -lallegro_audio -lallegro_acodec -o allegro

@@ -1,6 +1,6 @@
 /*
  * Cola.c
- * Por: Dr. Víctor Alberto Gómez Pérez
+ * Por: Dr. Vï¿½ctor Alberto Gï¿½mez Pï¿½rez
  * Universidad de la Sierra Sur
  */
 
@@ -50,7 +50,7 @@ int Cola_Vacia(Cola *c)
 
 int Cola_Llena (Cola *c)
 {
-	if (c->Final==MAX-1)
+	if (c->Final==MAXI-1)
 		return 1;
 	else
 		return 0;

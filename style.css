@@ -1,24 +1,13 @@
-#subLine {
-    padding-top: 2px;
-    padding-right: 100px;
-    background: #CCC;
-}
 #box {
-    /* background: radial-gradient(circle at 100%, rgb(237, 129, 176) 0%, rgb(106, 197, 236) 100%); */
-    background: radial-gradient(closest-side, rgb(0, 37, 31) 0%, rgb(0, 0, 0) 90%);
-}
-.labelTitle {
-    color: rgb(26, 190, 136);
-    font-size: 22px;
-    letter-spacing: 3px;
-    text-shadow: #CCC 1px 0 10px;
-    /* text-decoration: overline rgb(0, 162, 255); */
-    -webkit-text-stroke: 2px black; 
-    font-family: sans; color: whitesmoke;
-    transition: all 2s;
-}
-.labelTitle:hover {
-    letter-spacing: 5px;
-    font-size: 23px;
+    /* background: linear-gradient(226deg, #b0f1e3, #0365d4, #2f2e30); */
+    background: radial-gradient(ellipse at top, #0365d4, #b0f1e3), radial-gradient(ellipse at bottom, #b0f1e3, transparent);
+    background-size: 600% 600%;
 
+    animation: bg 5s ease infinite;
+}
+
+@keyframes bg {
+    0%{background-position:0% 72%}
+    50%{background-position:100% 29%}
+    100%{background-position:0% 72%}
 }

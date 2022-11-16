@@ -1,16 +1,16 @@
 /*
  * Cola.h
- * Por: Dr. Víctor Alberto Gómez Pérez
+ * Por: Dr. Vï¿½ctor Alberto Gï¿½mez Pï¿½rez
  * Universidad de la Sierra Sur
  */
 
 #include <stdio.h>
-# define MAX 100
+# define MAXI 100
 
 
 typedef struct
 {
-   int Arreglo[MAX];
+   int Arreglo[MAXI];
    int Frente;
    int Final;
 } Cola;
