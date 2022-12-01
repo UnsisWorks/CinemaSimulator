@@ -3,7 +3,7 @@
     background: radial-gradient(ellipse at top, #0365d4, #b0f1e3), radial-gradient(ellipse at bottom, #b0f1e3, transparent);
     background-size: 600% 600%;
 
-    animation: bg 5s ease infinite;
+    animation: bg 2s ease infinite;
 }
 
 @keyframes bg {

@@ -13,8 +13,9 @@ static void loadData (GtkWidget *widget, GtkWidget *gData) {
     puts("Moving");
     for (size_t i = 11; i < 800; i+=5) {
         gtk_layout_move(GTK_LAYOUT(initLayout), box, i, 40);
-        sleep(0.09);
-        puts("...");
+        sleep(1);
+        gtk_widget_show_all(initLayout);
+        // puts("...");
     }
 }
 
@@ -140,6 +141,7 @@ static void activate (GtkApplication *app, gpointer user_data) {
     gtk_window_set_title(GTK_WINDOW (mainWindow), ".");
     gtk_window_set_default_size (GTK_WINDOW (mainWindow), 800, 450);
     gtk_window_set_resizable(GTK_WINDOW(mainWindow), FALSE);
+    gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
 
 
 
@@ -164,6 +166,8 @@ int main (int argc, char **argv) {
     return status;
 }
 
-// Compiler gcc `pkg-config --cflags gtk+-3.0` -o main main.c `pkg-config --libs gtk+-3.0`     
+// Compiler gcc `pkg-config --cflags gtk+-3.0` -o main main.c `pkg-config --libs gtk+-3.0` 
+
 // Compiler: gcc `pkg-config --cflags gtk+-3.0` -o main main.c `pkg-config --libs gtk+-3.0` -I/home/monstruosoft/libs/usr/local/include/ -L/home/monstruosoft/libs/usr/local/lib/ -lallegro -lallegro_audio -lallegro_acodec
+
 // Compiler: gcc `pkg-config --cflags gtk+-3.0` main.c `pkg-config --libs gtk+-3.0` -I/home/monstruosoft/libs/usr/local/include/ -L/home/monstruosoft/libs/usr/local/lib/ -lalleg -o main
