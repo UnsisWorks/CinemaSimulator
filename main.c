@@ -1,8 +1,8 @@
 #include <gtk/gtk.h>
-// #include <mysql.h>
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include "saveData.c"
 // #include "Cola.c"
 
 GtkWidget *mainWindow, *initWindow, *box, *initLayout;
@@ -17,6 +17,44 @@ static void loadData (GtkWidget *widget, GtkWidget *gData) {
         gtk_widget_show_all(initLayout);
         // puts("...");
     }
+}
+
+/**
+ * It creates a window, sets its title, size, and resizability, creates a table, creates two labels,
+ * attaches the labels to the table, adds the table to the window, and shows the window
+ * 
+ * @param X The width of the window.
+ * @param Y The number of rows in the table.
+ */
+static void table() {
+    gtk_widget_set_visible(GTK_WIDGET(mainWindow), FALSE);
+    GtkWidget *window, *lOrd, *table, *lPeople, *ftPed;
+
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(window), "Orden de posiciones");
+    gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
+    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+
+    table = gtk_grid_new();
+    gtk_widget_set_name(GTK_WIDGET(table), "table");
+    gtk_grid_set_row_homogeneous(GTK_GRID(table), TRUE);
+    lPeople = gtk_label_new("Nombres");
+    lOrd = gtk_label_new("Descripcion");
+    ftPed = gtk_label_new("juan escutia");
+
+    gtk_grid_set_column_spacing(GTK_GRID(table), 2);
+    gtk_grid_attach(GTK_GRID(table), lPeople, 15, 0, 120, 210);
+    gtk_grid_attach(GTK_GRID(table), lOrd,200, 0, 120, 210);
+
+    gtk_grid_insert_row(GTK_GRID(table), 1);
+    // gtk_grid_set_column_spacing(GTK_GRID(table), 2);
+    gtk_grid_attach(GTK_GRID(table), ftPed, 15, 20, 120, 210);
+
+    gtk_container_add(GTK_CONTAINER(window), table);
+
+    // webossss
+
+    gtk_widget_show_all(window);
 }
 
 static void initSimulator(GtkWidget *widget, GtkWidget *gData) {
@@ -101,10 +139,7 @@ static void activate (GtkApplication *app, gpointer user_data) {
 
 
     // Add signals at buttons
-    g_signal_connect(buttonStart, "clicked", G_CALLBACK(initSimulator), NULL);
-    // g_signal_connect(buttonAcer, "clicked", G_CALLBACK(acercaDe), NULL);
-    // g_signal_connect(buttonList, "clicked", G_CALLBACK(windowScore), NULL);
-    // g_signal_connect(buttonP, "clicked", G_CALLBACK(windowScore), NULL);
+    g_signal_connect(buttonStart, "clicked", G_CALLBACK(table), NULL);
 
     // Add buttons  at button box
     gtk_container_add(GTK_CONTAINER(buttBoxAcer), buttonAcer);
@@ -115,10 +150,6 @@ static void activate (GtkApplication *app, gpointer user_data) {
     
     // Add buttons at box
     gtk_container_add(GTK_CONTAINER(box), buttBoxPlay);
-    // gtk_container_add(GTK_CONTAINER(box), buttBoxScore);
-    // gtk_container_add(GTK_CONTAINER(box), buttBoxHelp);
-    // gtk_container_add(GTK_CONTAINER(box), buttBoxAcer);
-    // gtk_container_add(GTK_CONTAINER(box), buttBoxExit);
 
     gtk_widget_set_size_request(GTK_WIDGET(buttonAcer), 240, 90);
     gtk_widget_set_size_request(GTK_WIDGET(buttonHelp), 240, 90);
@@ -141,7 +172,7 @@ static void activate (GtkApplication *app, gpointer user_data) {
     gtk_window_set_title(GTK_WINDOW (mainWindow), ".");
     gtk_window_set_default_size (GTK_WINDOW (mainWindow), 800, 450);
     gtk_window_set_resizable(GTK_WINDOW(mainWindow), FALSE);
-    gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
+    gtk_window_set_decorated(GTK_WINDOW(mainWindow), FALSE);
 
 
 
@@ -158,6 +189,7 @@ static void activate (GtkApplication *app, gpointer user_data) {
 int main (int argc, char **argv) {
     GtkApplication *app;
     int status;
+    system("clear");
     app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
     g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
     status = g_application_run (G_APPLICATION (app), argc, argv);

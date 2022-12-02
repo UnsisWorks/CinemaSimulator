@@ -1,13 +1,10 @@
 #box {
-    /* background: linear-gradient(226deg, #b0f1e3, #0365d4, #2f2e30); */
-    background: radial-gradient(ellipse at top, #0365d4, #b0f1e3), radial-gradient(ellipse at bottom, #b0f1e3, transparent);
-    background-size: 600% 600%;
-
-    animation: bg 2s ease infinite;
+    background: linear-gradient(226deg, #b0f1e3, #0365d4, #2f2e30);
+    /* background: radial-gradient(ellipse at top, #0365d4, #b0f1e3), radial-gradient(ellipse at bottom, #b0f1e3, transparent); */
+    /* background-size: 600% 600%; */
 }
-
-@keyframes bg {
-    0%{background-position:0% 72%}
-    50%{background-position:100% 29%}
-    100%{background-position:0% 72%}
+.table {
+    background: black;
+    border-color: red;
+    border-width: 2px;
 }
