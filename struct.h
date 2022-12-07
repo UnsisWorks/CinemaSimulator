@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define MAX 100
+#define MAXI 100
 struct estructura_pizza{
 
     char sabor[24];

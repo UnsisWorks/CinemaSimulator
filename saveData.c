@@ -12,11 +12,11 @@ libro leerDatos ();
 void repoPizza();
 void cargar();
 void guardar(libro dato);
-libro libros[MAX];
+libro libros[MAXI];
 libro dato;
 int contador_libros = 0;
 int C=0;
-int main () {
+int init () {
     int opc;
 
 

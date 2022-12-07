@@ -4,8 +4,7 @@ import random as cold
 
 def main():
     data = open("elements.txt", "w")
-    
-    limit = 10
+    limit = 25
     os.system("clear")
     generateLast = ["1"]
     people = ""
@@ -15,6 +14,9 @@ def main():
     ftName = ["Juan", "Arturo", "Marlen", "Jesus", "Vanessa", "Orlando", "Socorro", "Julian", "Fernanda", "Diana", "Selena", "Ortencia", "Lupita", "Arnold", "Rolando", "Angel", "Noemy", "Sara", "Roberto", "Maribel", "Sury"]
     
     ndName = ["Perez", "Ramirez", "Cantaros", "Flores", "Garcia", "Hernandez", "Dias", "Hipolito", "Gomez", "Rojas", "Ortiz", "Ortega", "Villa Garza", "Bolaños"]
+    
+    size = ["Mediana", "Grande", "Pequeña", "Sarten", "Familiar", "Rebanada"]
+    ingredientes = ["Peperoni", "Carnes frìas", "Hawayana"]
         
     for i in range(limit):
         # Generate name atoi
@@ -32,8 +34,9 @@ def main():
             
         # Discart or continue
         if(coincidencias == 0):
+            
             print(f"Nombre {i}: {people}")
-            data.write(people + " º" + "\n")
+            data.write(people + "\n")
             generateLast.append(people)
                 
         else:
@@ -42,14 +45,17 @@ def main():
         coincidencias = 0
     
     print("******* Ingredientes *******")
-    size = ["Mediana", "Grande", "Pequeña", "Sarten"]
-    ingredientes = ["Peperoni", "Carnes frìas", "Hawayana"]
+    data.write("\nº\n\n")
     
     for i in range(limit):
-        firts = cold.randint(0, len(size))
-        second = cold.randint(0, len(ingredientes))
         
-        print(f"Tamaño: {size[firts]} de: {ingredientes[second]}")
-
+        ftIng = cold.randrange(0, len(size), 1)
+        ndIng = cold.randrange(0, len(ingredientes), 1)
+        
+        print(f"Tamaño: {size[ftIng]} de: {ingredientes[ndIng]}")
+        data.write(size[ftIng] + " " + ingredientes[ndIng] + "\n")
+        
+    data.close()
+   
 if __name__ == '__main__':
     main()
